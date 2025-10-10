@@ -37,6 +37,31 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
+// ==> THÊM ROOT ROUTE <==
+app.get('/', (req, res) => {
+    res.status(200).json({ 
+        message: 'Event Management API is operational',
+        status: 'running',
+        version: '1.0.0',
+        timestamp: new Date().toISOString(),
+        endpoints: {
+            auth: '/api/auth',
+            events: '/api/events',
+            users: '/api/users',
+            health: '/health'
+        }
+    });
+});
+
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'healthy',
+        uptime: process.uptime(),
+        timestamp: new Date().toISOString()
+    });
+});
+// ===========================
+
 // API Routes
 app.use('/api/auth', authRoute);
 app.use('/api/settings', settingsRoute);
@@ -47,7 +72,7 @@ app.use('/api/notifications', notificationRoute);
 app.use('/api/admin', adminRoute);
 app.use('/api/test-email', testEmailRoute);
 
-app.listen(8800, () => {
+app.listen(8800, '0.0.0.0', () => {
     console.log('Server is running on port 8800');
     console.log(`CORS enabled for origin: ${process.env.CLIENT_URL}`);
     eventStatusUpdater();
