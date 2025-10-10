@@ -38,4 +38,5 @@ jobs:
           -e EMAIL_PASSWORD='${{ secrets.EMAIL_PASSWORD }}' \
           -e EMAIL_FROM_NAME='${{ secrets.EMAIL_FROM_NAME }}' \
           -e EMAIL_FROM_ADDRESS='${{ secrets.EMAIL_FROM_ADDRESS }}' \
-          -e REQUIRE_EMAIL_VERIFICATION='${{ secrets.REQUIRE_EMAIL_VERIFICATION }}' \ tony26112004/event-management-api:latest
+          -e REQUIRE_EMAIL_VERIFICATION='${{ secrets.REQUIRE_EMAIL_VERIFICATION }}' \
+          tony26112004/event-management-api:latest
