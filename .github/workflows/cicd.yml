@@ -14,7 +14,7 @@ jobs:
       - name: Login to docker hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}     
       - name: Build Docker Image
-        run: docker build -t tony26112004/event-management-api  .
+        run: docker build -t tony26112004/event-management-api:latest .
       - name: Publish Image to docker hub
         run: docker push tony26112004/event-management-api:latest 
  
@@ -25,6 +25,17 @@ jobs:
       - name: Pull image from docker hub
         run: docker pull tony26112004/event-management-api:latest  
       - name: Delete old container
-        run: docker rm -f nodejs-app-container  
+        run: docker rm -f nodejs-app-container || true
       - name: Run Docker Container
-        run: docker run -d -p 4000:4000 --name nodejs-app-container -e MONGO_PASSWORD='${{ secrets.MONGO_PASSWORD }}' tony26112004/event-management-api
+        run: |
+          docker run -d -p 8800:8800 --name nodejs-app-container \
+          -e DATABASE_URL='${{ secrets.DATABASE_URL }}' \
+          -e JWT_SECRET='${{ secrets.JWT_SECRET }}' \
+          -e CLIENT_URL='${{ secrets.CLIENT_URL }}' \
+          -e CLOUDINARY_CLOUD_NAME='${{ secrets.CLOUDINARY_CLOUD_NAME }}' \
+          -e CLOUDINARY_UPLOAD_PRESET='${{ secrets.CLOUDINARY_UPLOAD_PRESET }}' \
+          -e EMAIL_USERNAME='${{ secrets.EMAIL_USERNAME }}' \
+          -e EMAIL_PASSWORD='${{ secrets.EMAIL_PASSWORD }}' \
+          -e EMAIL_FROM_NAME='${{ secrets.EMAIL_FROM_NAME }}' \
+          -e EMAIL_FROM_ADDRESS='${{ secrets.EMAIL_FROM_ADDRESS }}' \
+          -e REQUIRE_EMAIL_VERIFICATION='${{ secrets.REQUIRE_EMAIL_VERIFICATION }}' \ tony26112004/event-management-api:latest
