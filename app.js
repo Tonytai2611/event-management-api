@@ -37,7 +37,7 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-// ==> THÊM ROOT ROUTE <==
+
 app.get('/', (req, res) => {
     res.status(200).json({ 
         message: 'Event Management API is operational',
