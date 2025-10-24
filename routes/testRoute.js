@@ -1,5 +1,5 @@
 /**
- * @route GET /api/test/email-config
+ * @route GET /test/email-config
  * @desc Check email configuration
  * @access Public
  */
@@ -35,7 +35,7 @@ router.get('/email-config', (req, res) => {
 });
 
 /**
- * @route POST /api/test/send-test-email
+ * @route POST /test/send-test-email
  * @desc Send test email to check configuration
  * @access Private (admin)
  */
@@ -76,7 +76,7 @@ router.post('/send-test-email', verifyToken, async (req, res) => {
 });
 
 /**
- * @route GET /api/test/user-verification/:email
+ * @route GET /test/user-verification/:email
  * @desc Check verification status of a user
  * @access Private (admin)
  */

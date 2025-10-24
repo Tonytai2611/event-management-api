@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 import User from '../models/User.js';
 import nodemailerService from '../utils/nodemailerService.js';
 
-// GET /api/events/:eventId/invitations/:userId
+// GET /events/:eventId/invitations/:userId
 export const getInvitations = async (req, res) => {
     try {
         const { eventId } = req.query;
@@ -32,7 +32,7 @@ export const getInvitations = async (req, res) => {
 };
 
 
-// POST /api/events/:eventId/invite
+// POST /events/:eventId/invite
 export const inviteToEvent = async (req, res) => {
     // Start a session for the transaction
     const session = await mongoose.startSession();
@@ -239,8 +239,8 @@ export const inviteToEvent = async (req, res) => {
     }
 };
 
-// PUT /api/events/:eventId/invitations/:invitationId
-// PUT /api/events/:eventId/invitations/:invitationId
+// PUT /events/:eventId/invitations/:invitationId
+// PUT /events/:eventId/invitations/:invitationId
 export const handleInvitation = async (req, res) => {
     // Start a session for the transaction
     const session = await mongoose.startSession();

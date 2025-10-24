@@ -28,7 +28,7 @@ export const getRequests = async (req, res) => {
     }
 };
 
-// POST /api/events/:eventId/request-join
+// POST /events/:eventId/request-join
 export const requestToJoinEvent = async (req, res) => {
     console.log('Memory before function:', process.memoryUsage().heapUsed / 1024 / 1024, 'MB');
     const session = await mongoose.startSession();
@@ -324,7 +324,7 @@ export const requestToJoinEvent = async (req, res) => {
     }
 };
 
-// PUT /api/events/:eventId/requests/:requestId
+// PUT /events/:eventId/requests/:requestId
 export const handleJoinRequest = async (req, res) => {
     const session = await mongoose.startSession();
 

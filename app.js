@@ -47,9 +47,9 @@ app.get('/', (req, res) => {
         version: '1.0.0',
         timestamp: new Date().toISOString(),
         endpoints: {
-            auth: '/api/auth',
-            events: '/api/events',
-            users: '/api/users',
+            auth: '/auth',
+            events: '/events',
+            users: '/users',
             health: '/health'
         }
     });
@@ -65,14 +65,14 @@ app.get('/health', (req, res) => {
 // ===========================
 
 // API Routes
-app.use('/api/auth', authRoute);
-app.use('/api/settings', settingsRoute);
-app.use('/api/comments', commentRoute);
-app.use('/api/users', userRoute);
-app.use('/api/events', eventRoute);
-app.use('/api/notifications', notificationRoute);
-app.use('/api/admin', adminRoute);
-app.use('/api/test-email', testEmailRoute);
+app.use('/auth', authRoute);
+app.use('/settings', settingsRoute);
+app.use('/comments', commentRoute);
+app.use('/users', userRoute);
+app.use('/events', eventRoute);
+app.use('/notifications', notificationRoute);
+app.use('/admin', adminRoute);
+app.use('/test-email', testEmailRoute);
 
 app.listen(8800, '0.0.0.0', () => {
     console.log('Server is running on port 8800');

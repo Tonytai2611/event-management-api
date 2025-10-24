@@ -9,7 +9,7 @@ import fs from 'fs';
 import https from 'https';
 import mongoose from 'mongoose';
 
-// GET /api/events
+// GET /events
 export const getAllEvent = async (req, res) => {
   try {
     const { public: isPublic, organizerId, participantId } = req.query;
@@ -47,7 +47,7 @@ export const getAllEvent = async (req, res) => {
   }
 };
 
-// GET /api/events/:eventId
+// GET /events/:eventId
 export const getEvent = async (req, res) => {
   try {
     const event = await Event.findById(req.params.eventId).populate('organizer');
@@ -60,7 +60,7 @@ export const getEvent = async (req, res) => {
   }
 };
 
-// POST /api/events
+// POST /events
 export const createEvent = async (req, res) => {
   try {
 
@@ -73,7 +73,7 @@ export const createEvent = async (req, res) => {
       const base64File = fileBuffer.toString('base64');
       const dataURI = `data:${req.file.mimetype};base64,${base64File}`;
 
-      const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`;
+      const cloudinaryUrl = `https:/.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`;
 
       // manually construct data payload
       const boundary = '----WebKitFormBoundary' + Math.random().toString(16).slice(2);
@@ -177,7 +177,7 @@ export const createEvent = async (req, res) => {
   }
 };
 
-// PUT /api/events/:eventId
+// PUT /events/:eventId
 export const updateEvent = async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -192,7 +192,7 @@ export const updateEvent = async (req, res) => {
       const base64File = fileBuffer.toString('base64');
       const dataURI = `data:${req.file.mimetype};base64,${base64File}`;
 
-      const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`;
+      const cloudinaryUrl = `https:/.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`;
 
       // manually construct data payload
       const boundary = '----WebKitFormBoundary' + Math.random().toString(16).slice(2);
@@ -345,7 +345,7 @@ export const updateEvent = async (req, res) => {
   }
 };
 
-// DELETE /api/events/:eventId
+// DELETE /events/:eventId
 export const deleteEvent = async (req, res) => {
   try {
     // Soft delete the event

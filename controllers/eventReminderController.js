@@ -7,7 +7,7 @@ import nodemailerService from '../utils/nodemailerService.js';
 
 /**
  * Send reminders to users who have been invited but haven't responded
- * POST /api/events/:eventId/reminders/pending-invites
+ * POST /events/:eventId/reminders/pending-invites
  */
 export const sendPendingInvitationReminders = async (req, res) => {
     const session = await mongoose.startSession();
@@ -145,7 +145,7 @@ export const sendPendingInvitationReminders = async (req, res) => {
 
 /**
  * Send reminders to confirmed attendees of an event
- * POST /api/events/:eventId/reminders/attendees
+ * POST /events/:eventId/reminders/attendees
  */
 export const sendAttendeeReminders = async (req, res) => {
     const session = await mongoose.startSession();

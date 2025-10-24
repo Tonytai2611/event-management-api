@@ -3,7 +3,7 @@ import Notification from "../models/Notification.js";
 import Participation from "../models/Participation.js";
 
 // @desc    Get all notifications for a user
-// @route   GET /api/notifications/:userId
+// @route   GET /notifications/:userId
 // @access  Private
 export const getNotifications = async (req, res) => {
     try {
@@ -62,7 +62,7 @@ export const getNewCount = async (req, res) => {
 };
 
 // @desc    Mark a notification as read
-// @route   PATCH /api/notifications/:notificationId/read
+// @route   PATCH /notifications/:notificationId/read
 // @access  Private
 export const markAsRead = async (req, res) => {
     try {
@@ -82,7 +82,7 @@ export const markAsRead = async (req, res) => {
 };
 
 // @desc    Create a new notification
-// @route   POST /api/notifications
+// @route   POST /notifications
 // @access  Private
 export const createNotification = async (req, res) => {
     try {
@@ -96,7 +96,7 @@ export const createNotification = async (req, res) => {
 };
 
 // @desc    Delete a notification
-// @route   DELETE /api/notifications/:notificationId
+// @route   DELETE /notifications/:notificationId
 // @access  Private
 export const deleteNotification = async (req, res) => {
     try {
