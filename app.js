@@ -29,8 +29,8 @@ app.use(cors({
     origin: [
         'http://localhost:5173',  // For local development
         'https://eventmangementapp.netlify.app',  // Your Netlify URL
-        'http://52.77.247.43',  // Your EC2 instance
-        'https://52.77.247.43'
+        'http://18.143.73.181',  // Your EC2 instance
+        'https://18.143.73.18'
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
