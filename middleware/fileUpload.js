@@ -1,50 +1,46 @@
-import multer from "multer";
+import multer from 'multer';
 import path from 'path';
-import { fileURLToPath } from "url";
-import fs from 'fs';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const storageType = process.env.STORAGE_TYPE || 'cloudinary';
 
-const UPLOAD_DIR = path.join(process.cwd(), 'tmp', 'uploads');
+// Memory Storage for S3 (buffer in RAM)
+const memoryStorage = multer.memoryStorage();
 
-const ensureUploadDirExists = () => {
-    try {
-        if (!fs.existsSync(UPLOAD_DIR)) {
-            fs.mkdirSync(UPLOAD_DIR, { recursive: true });
-            console.log(`Created upload directory at: ${UPLOAD_DIR}`);
-        }
-        return UPLOAD_DIR;
-    } catch (err) {
-        console.error(`Failed to create upload directory: ${err}`);
-        throw new Error(`Could not create upload directory: ${err.message}`); // Rethrow to prevent further execution
+// Disk Storage for Cloudinary
+const diskStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const uploadDir = 'uploads/';
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
     }
-};
-
-const uploadDir = ensureUploadDirExists();
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, uploadDir); // save uploads 
-    },
-    filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-        const ext = path.extname(file.originalname);
-        cb(null, file.fieldname + '-' + uniqueSuffix + ext);
-    },
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+  }
 });
 
-export const upload = multer({
-    storage,
-    limits: {
-        fileSize: 5 * 1024 * 1024,
-        files: 1
-    }, // 5MB limit, 1 file only
-    fileFilter: (req, file, cb) => {
-        const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
-        if (!allowedTypes.includes(file.mimetype)) {
-            return cb(new Error('Only JPG, PNG and WebP images are allowed'));
-        }
-        cb(null, true);
+// Choose storage based on type
+const storage = storageType === 's3' ? memoryStorage : diskStorage;
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB
+    files: 1
+  },
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = /jpeg|jpg|png|gif|webp/;
+    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedTypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+      return cb(null, true);
+    } else {
+      cb(new Error('Only image files are allowed!'));
     }
+  },
 });
+
+export default upload;

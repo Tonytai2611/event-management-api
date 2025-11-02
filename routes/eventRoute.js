@@ -3,7 +3,7 @@ import { getAllEvent, getEvent, createEvent, updateEvent, deleteEvent } from '..
 import { requestToJoinEvent, handleJoinRequest, getRequests } from '../controllers/eventRequestController.js';
 import { inviteToEvent, handleInvitation, getInvitations } from '../controllers/eventInvitationController.js';
 import { verifyToken } from '../middleware/verifyToken.js';
-import { upload } from '../middleware/fileUpload.js';
+import  upload  from '../middleware/fileUpload.js';
 import { sendPendingInvitationReminders, sendAttendeeReminders } from '../controllers/eventReminderController.js';
 
 const router = express.Router();
