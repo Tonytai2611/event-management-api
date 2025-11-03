@@ -1,5 +1,6 @@
 import multer from 'multer';
 import path from 'path';
+import fs from 'fs';
 
 const storageType = process.env.STORAGE_TYPE || 'cloudinary';
 
